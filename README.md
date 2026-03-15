@@ -30,19 +30,7 @@ An AI-powered Retrieval-Augmented Generation (RAG) application that allows users
 
 The system follows a Retrieval-Augmented Generation (RAG) pipeline:
 
-Website URL
-↓
-Web scraping
-↓
-Text chunking
-↓
-Embeddings generation
-↓
-Vector database storage
-↓
-Semantic retrieval
-↓
-LLM generates answer
+Website URL -> Web scraping -> Text chunking -> Embeddings generation -> Vector database storage -> Semantic retrieval -> LLM generates answer
 
 
 ---
@@ -50,16 +38,16 @@ LLM generates answer
 ## Project Structure
 
 
-website-rag-assistant
-│
-├── app.py # Streamlit interface
-├── crawler.py # Website content extraction
-├── rag_pipeline.py # RAG pipeline logic
-├── config.py # Configuration settings
-├── requirements.txt # Project dependencies
-├── README.md
-│
-└── vector_store/ # Stored embeddings
+    website-rag-assistant
+    │
+    ├── app.py # Streamlit interface
+    ├── crawler.py # Website content extraction
+    ├── rag_pipeline.py # RAG pipeline logic
+    ├── config.py # Configuration settings
+    ├── requirements.txt # Project dependencies
+    ├── README.md
+    │
+    └── vector_store/ # Stored embeddings
 
 
 ---
