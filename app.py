@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from dotenv import load_dotenv
 
@@ -6,25 +7,47 @@ from rag_pipeline import create_vector_store, ask_question
 
 load_dotenv()
 
-st.title("Website RAG Assistant")
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
+st.set_page_config(
+page_title="Website RAG Assistant",
+page_icon="🌐"
+)
+
+st.title("🌐 Website RAG Assistant")
 
 url = st.text_input("Enter Website URL")
 
 if st.button("Index Website"):
 
-    with st.spinner("Crawling website..."):
+    if not url:
+        st.warning("Please enter a website URL.")
+    else:
 
-        text = crawl_website(url)
+        with st.spinner("Crawling website..."):
 
-        st.session_state.vector_store = create_vector_store(text)
+            text = crawl_website(url)
+
+            st.session_state.vector_store = create_vector_store(text)
 
         st.success("Website indexed successfully!")
 
-question = st.text_input("Ask a question about the website")
+question = st.text_input(
+"Ask a question about the website"
+)
 
-if question and "vector_store" in st.session_state:
+if (
+question
+and "vector_store" in st.session_state
+):
 
-    answer = ask_question(st.session_state.vector_store, question)
+    with st.spinner("Generating answer..."):
 
-    st.write("### Answer")
+        answer = ask_question(
+            st.session_state.vector_store,
+            question
+        )
+
+    st.subheader("Answer")
     st.write(answer)
